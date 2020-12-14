@@ -8,13 +8,25 @@
       </a>
       <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
         <a href="{% url 'leads:lead-list' %}" class="mr-5 hover:text-gray-900">Leads</a>
-        <a class="mr-5 hover:text-gray-900">Signup</a>
+        {% if not request.user.is_authenticated %}
+          <a href="{% url 'signup' %}" class="mr-5 hover:text-gray-900">Signup</a>
+        {% endif %}
       </nav>
-      <a href='#' class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">
-          Login
+      {% if request.user.is_authenticated %}
+        Logged in as: {{ request.user.username }}
+        <a href="{% url 'logout' %}" class="ml-3 inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">
+          Logout
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
+        </a>
+      {% else %}
+      <a href="{% url 'login' %}" class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">
+          Login
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
       </a>
+      {% endif %}
     </div>
 </header>
