@@ -7,9 +7,11 @@
         <span class="ml-3 text-xl">DJ CRM</span>
       </a>
       <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-        <a href="{% url 'leads:lead-list' %}" class="mr-5 hover:text-gray-900">Leads</a>
         {% if not request.user.is_authenticated %}
           <a href="{% url 'signup' %}" class="mr-5 hover:text-gray-900">Signup</a>
+        {% else %}
+          <a href="{% url 'agents:agent-list' %}" class="mr-5 hover:text-gray-900">Agents</a>
+          <a href="{% url 'leads:lead-list' %}" class="mr-5 hover:text-gray-900">Leads</a>
         {% endif %}
       </nav>
       {% if request.user.is_authenticated %}
