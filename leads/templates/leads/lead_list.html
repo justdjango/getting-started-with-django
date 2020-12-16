@@ -8,9 +8,13 @@
             <div>
                 <h1 class="text-4xl text-gray-800">Leads</h1>
             </div>
+            {% if request.user.is_organisor %}
             <div>
-                <a class="text-gray-500 hover:text-blue-500" href="{% url 'leads:lead-create' %}">Create a new lead</a>
+                <a class="text-gray-500 hover:text-blue-500" href="{% url 'leads:lead-create' %}">
+                    Create a new lead
+                </a>
             </div>
+            {% endif %}
         </div>
         <div class="flex flex-wrap -m-4">
             {% for lead in leads %}
