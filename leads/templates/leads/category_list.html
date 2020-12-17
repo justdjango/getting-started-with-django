@@ -26,7 +26,7 @@
             {% for category in category_list %}
                 <tr>
                     <td class="px-4 py-3">
-                      <a href="{% url 'leads:category-detail' category.pk %}">{{ category.name }}</a>
+                      <a class="hover:text-blue-500" href="{% url 'leads:category-detail' category.pk %}">{{ category.name }}</a>
                     </td>
                     <td class="px-4 py-3">TODO count</td>
                 </tr>

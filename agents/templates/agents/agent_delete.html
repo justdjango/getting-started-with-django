@@ -12,5 +12,8 @@
         {{ form|crispy }}
         <button type="submit" class="w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md">Submit</button>
     </form>
+    <div class="py-5 mt-5">
+        <a class="hover:text-blue-500" href="{% url 'agents:agent-detail' object.pk %}">Cancel</a>
+    </div>
 </div>
 {% endblock content %}
