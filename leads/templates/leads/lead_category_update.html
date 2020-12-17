@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load tailwind_filters %}
 
 {% block content %}
 
@@ -21,12 +22,9 @@
             </div>
             <form form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Submit</button>
+                {{ form|crispy }}
+                <button type="submit" class="w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md">Submit</button>
             </form>
-            <a href="{% url 'leads:lead-delete' lead.pk %}" class="w-1/2 mt-3 flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                Delete
-            </a>
         </div>
         <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
       </div>
