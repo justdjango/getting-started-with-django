@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="text-gray-700 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20">
+        <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Categories</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+            These categories segment the leads
+        </p>
+      </div>
+      <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+        <table class="table-auto w-full text-left whitespace-no-wrap">
+          <thead>
+            <tr>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200 rounded-tl rounded-bl">Name</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Lead Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td class="px-4 py-3">Unassigned</td>
+                <td class="px-4 py-3">{{ unassigned_lead_count }}</td>
+            </tr>
+            {% for category in category_list %}
+                <tr>
+                    <td class="px-4 py-3">
+                      <a class="hover:text-blue-500" href="{% url 'leads:category-detail' category.pk %}">{{ category.name }}</a>
+                    </td>
+                    <td class="px-4 py-3">TODO count</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
