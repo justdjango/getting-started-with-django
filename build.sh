@@ -2,7 +2,7 @@
 
 set -o errexit
 
-sudo apt install python3-pip
+apt install python3-pip
 
 pip install -r requirements.txt
 
