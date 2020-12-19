@@ -4,9 +4,9 @@
 {% block content %}
 
 <div class="max-w-lg mx-auto">
-    <a class="hover:text-blue-500" href="{% url 'leads:lead-list' %}">Go back to leads</a>
+    <a class="hover:text-blue-500" href="{% url 'leads:category-list' %}">Go back to categories</a>
     <div class="py-5 border-t border-gray-200">
-        <h1 class="text-4xl text-gray-800">Assign an agent to this lead</h1>
+        <h1 class="text-4xl text-gray-800">Are you sure you want to delete {{ object.name }}?</h1>
     </div>
     <form method="post" class="mt-5">
         {% csrf_token %}
