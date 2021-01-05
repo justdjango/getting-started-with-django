@@ -11,6 +11,15 @@
 </head>
 <body>
     <div class="max-w-7xl mx-auto">
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{% if message.tags == 'success' %}bg-green-500 text-white{% endif %}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
         {% include 'navbar.html' %}
         {% block content %}
         {% endblock content %}
