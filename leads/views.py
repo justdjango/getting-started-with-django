@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
@@ -375,3 +376,18 @@ class LeadCategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
     #     "form": form
     # }
 #     return render(request, "leads/lead_create.html", context)
+
+
+class LeadJsonView(generic.View):
+
+    def get(self, request, *args, **kwargs):
+        
+        qs = list(Lead.objects.all().values(
+            "first_name", 
+            "last_name", 
+            "age")
+        )
+
+        return JsonResponse({
+            "qs": qs,
+        })
