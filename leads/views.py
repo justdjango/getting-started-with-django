@@ -1,3 +1,4 @@
+import logging
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.http.response import JsonResponse
@@ -15,6 +16,9 @@ from .forms import (
     LeadCategoryUpdateForm,
     CategoryModelForm
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 # CRUD+L - Create, Retrieve, Update and Delete + List
