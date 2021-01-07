@@ -1,4 +1,5 @@
 import logging
+from django import contrib
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.http.response import JsonResponse
@@ -14,7 +15,8 @@ from .forms import (
     CustomUserCreationForm, 
     AssignAgentForm, 
     LeadCategoryUpdateForm,
-    CategoryModelForm
+    CategoryModelForm,
+    FollowUpModelForm
 )
 
 
@@ -335,6 +337,28 @@ class LeadCategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         return reverse("leads:lead-detail", kwargs={"pk": self.get_object().id})
+
+
+class FollowUpCreateView(LoginRequiredMixin, generic.CreateView):
+    template_name = "leads/followup_create.html"
+    form_class = FollowUpModelForm
+
+    def get_success_url(self):
+        return reverse("leads:lead-detail", kwargs={"pk": self.kwargs["pk"]})
+
+    def get_context_data(self, **kwargs):
+        context = super(FollowUpCreateView, self).get_context_data(**kwargs)
+        context.update({
+            "lead": Lead.objects.get(pk=self.kwargs["pk"])
+        })
+        return context
+
+    def form_valid(self, form):
+        lead = Lead.objects.get(pk=self.kwargs["pk"])
+        followup = form.save(commit=False)
+        followup.lead = lead
+        followup.save()
+        return super(FollowUpCreateView, self).form_valid(form)
 
 
 
