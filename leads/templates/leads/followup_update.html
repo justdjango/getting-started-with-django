@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+{% block content %}
+
+<div class="max-w-lg mx-auto">
+    <a class="hover:text-blue-500" href="{% url 'leads:lead-detail' object.lead.pk %}">Go back to followup</a>
+    <div class="py-5 border-t border-gray-200">
+        <h1 class="text-4xl text-gray-800">Update this followup</h1>
+    </div>
+    <form method="post" class="mt-5">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type='submit' class="w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md">
+            Submit
+        </button>
+    </form>
+    <div class="mt-5 pt-5 border-t border-gray-200">
+        <a href="{% url 'leads:lead-followup-delete' object.pk %}" class="text-white bg-red-500 hover:bg-red-600 px-3 py-2 rounded-md">
+            Delete
+        </a>
+    </div>
+</div>
+
+{% endblock content %}
