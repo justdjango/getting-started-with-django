@@ -196,6 +196,11 @@ class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         return reverse("leads:lead-list")
 
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, "You have successfully updated this lead")
+        return super(LeadUpdateView, self).form_valid(form)
+
 
 def lead_update(request, pk):
     lead = Lead.objects.get(id=pk)
