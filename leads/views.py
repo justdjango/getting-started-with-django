@@ -262,8 +262,14 @@ class CategoryListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "category_list"
 
     def get_context_data(self, **kwargs):
-        context = super(CategoryListView, self).get_context_data(**kwargs)
         user = self.request.user
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        # Extraction of the Categories info 
+        # <QuerySet [{'id': 6, 'name': 'developer', 'organisation_id': 1},
+        # {'id': 7, 'name': 'salary', 'organisation_id': 1}, 
+        # {'id': 8, 'name': 'DevOps', 'organisation_id': 1}]> 
+        cate_list = context['object_list'].values()
+        list_of_categories = []
 
         if user.is_organisor:
             queryset = Lead.objects.filter(
@@ -271,13 +277,24 @@ class CategoryListView(LoginRequiredMixin, generic.ListView):
             )
         else:
             queryset = Lead.objects.filter(
-                organisation=user.agent.organisation
+                organisations=user.agent.organisation
             )
+        # Looping over the extracted list of dictionaries
+        for cate_number in cate_list:
+            # Update The number field in each category by counting all the leads that connected to this category
+            cate_number['number'] = queryset.filter(
+                category=cate_number['id']).count()
+            x = {'id': cate_number['id'], 'name': cate_number['name'],
+                 'number': cate_number['number']}
+            list_of_categories.append(x)
 
         context.update({
-            "unassigned_lead_count": queryset.filter(category__isnull=True).count()
+            "unassigned_lead_count": queryset.filter(category__isnull=True).count(),
+            "reset": list_of_categories
+
         })
         return context
+
 
     def get_queryset(self):
         user = self.request.user
